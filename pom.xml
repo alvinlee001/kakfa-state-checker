@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kafka-state-checker</name>
 	<description>kafka-state-checker</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>17</java.version>
 		<spring-shell.version>2.1.0-M5</spring-shell.version>
@@ -42,6 +43,13 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.3</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -56,6 +64,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>kafkaStateChecker</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
