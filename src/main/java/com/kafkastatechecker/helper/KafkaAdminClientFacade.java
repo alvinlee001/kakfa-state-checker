@@ -13,6 +13,9 @@ import org.apache.kafka.common.config.ConfigResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,6 +25,8 @@ import static org.apache.kafka.common.security.auth.SecurityProtocol.SASL_PLAINT
 @Component
 @Slf4j
 public class KafkaAdminClientFacade {
+
+    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     GlobalRuntimeConfig globalRuntimeConfig;
@@ -71,9 +76,12 @@ public class KafkaAdminClientFacade {
             log.info("clusterInfoJson: {}", clusterInfoJson);
             log.info("partition info: {}", topics.get("connect-configs").authorizedOperations());
 
-            WriteToDiskHelper.writeToDisk("topics.json", topicJson);
-            WriteToDiskHelper.writeToDisk("topics-config.json", configTopicAllJson);
-            WriteToDiskHelper.writeToDisk("broker.json", clusterInfoJson);
+            WriteToDiskHelper.renamePreviousFiles(new File("./"));
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            WriteToDiskHelper.writeToDisk(String.format("topics-%s-%s-latest.json", df.format(timestamp), timestamp.getTime()), topicJson);
+            WriteToDiskHelper.writeToDisk(String.format("topics-%s-%s-config-latest.json", df.format(timestamp), timestamp.getTime()), configTopicAllJson);
+            WriteToDiskHelper.writeToDisk(String.format("broker-%s-%s-latest.json", df.format(timestamp), timestamp.getTime()), clusterInfoJson);
         } catch (Exception e) {
             log.error("fail to describe topics", e);
         }
@@ -89,7 +97,7 @@ public class KafkaAdminClientFacade {
     public Map<String, Object> getClusterInfo() {
         Map<String, Object> result = new HashMap<>();
         DescribeClusterResult cr = kafkaAdminClient.describeCluster();
-                ;
+        ;
         try {
             Set<AclOperation> acl = cr.authorizedOperations().get();
             Collection<Node> nodes =  cr.nodes().get();
