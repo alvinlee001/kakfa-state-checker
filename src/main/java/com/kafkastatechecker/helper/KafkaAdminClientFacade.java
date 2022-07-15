@@ -79,8 +79,8 @@ public class KafkaAdminClientFacade {
             WriteToDiskHelper.renamePreviousFiles(new File("./"));
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            WriteToDiskHelper.writeToDisk(String.format("topics-%s-%s-latest.json", df.format(timestamp), timestamp.getTime()), topicJson);
-            WriteToDiskHelper.writeToDisk(String.format("topics-%s-%s-config-latest.json", df.format(timestamp), timestamp.getTime()), configTopicAllJson);
+            WriteToDiskHelper.writeToDisk(String.format("topics-main-%s-%s-latest.json", df.format(timestamp), timestamp.getTime()), topicJson);
+            WriteToDiskHelper.writeToDisk(String.format("topics-config-%s-%s-latest.json", df.format(timestamp), timestamp.getTime()), configTopicAllJson);
             WriteToDiskHelper.writeToDisk(String.format("broker-%s-%s-latest.json", df.format(timestamp), timestamp.getTime()), clusterInfoJson);
         } catch (Exception e) {
             log.error("fail to describe topics", e);
