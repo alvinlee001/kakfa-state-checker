@@ -1,9 +1,6 @@
 package com.kafkastatechecker;
 
-import com.kafkastatechecker.helper.KafkaBrokerHelper;
-import com.kafkastatechecker.helper.KafkaTopicHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,11 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KafkaStateCheckerApplication implements CommandLineRunner {
 
-	@Autowired
-	private KafkaBrokerHelper kafkaBrokerHelper;
-
-	@Autowired
-	private KafkaTopicHelper kafkaTopicHelper;
 
 	public static void main(String[] args) {
 		SpringApplication.run(KafkaStateCheckerApplication.class, args);

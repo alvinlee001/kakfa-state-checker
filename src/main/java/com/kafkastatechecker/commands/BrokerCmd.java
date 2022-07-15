@@ -1,16 +1,12 @@
 package com.kafkastatechecker.commands;
 
 import com.kafkastatechecker.config.GlobalRuntimeConfig;
-import com.kafkastatechecker.helper.KafkaTopicHelper;
 import com.kafkastatechecker.service.KafkaBrokerStateService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.admin.TopicListing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-
-import java.util.Set;
 
 import static org.springframework.shell.standard.ShellOption.NULL;
 
